@@ -1,0 +1,75 @@
+﻿@model EcommerceManagement.Web.Dtos.Users.Commands.UserLoginModalDto
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <link rel="stylesheet" href="~/css/style.css">
+}
+
+<div class="container py-5" style="margin-top: 50px;">
+    <div class="row mb-5">
+        <div class="col-lg-6 offset-lg-3 text-center">
+            @if (ViewData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger">
+                    @ViewData["ErrorMessage"]
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 offset-lg-3">
+            <div class="card p-4">
+                <h1 class="text-center">Sign In</h1>
+                <div class="alert text-center">
+                    New customer? <a asp-action="Register" asp-controller="User">Click here</a> to Sign Up.
+                </div>
+                <form asp-action="Login" asp-controller="User" method="post">
+                    <div class="form-group mb-4 custom-form-group">
+                        <input asp-for="UserName" type="text"
+                            class="form-control input-dark @(ViewData.ModelState["UserName"]?.Errors.Count > 0 ? "is-invalid" : (ViewData.ModelState["UserName"] != null ? "is-valid" : ""))"
+                            placeholder="Enter your username" />
+                        <span asp-validation-for="UserName" class="invalid-feedback"></span>
+                    </div>
+
+                    <div class="form-group mb-4 custom-form-group">
+                        <input asp-for="Password" type="password"
+                            class="form-control input-dark @(ViewData.ModelState["Password"]?.Errors.Count > 0 ? "is-invalid" : (ViewData.ModelState["Password"] != null ? "is-valid" : ""))"
+                            placeholder="Enter your password" />
+                        <span asp-validation-for="Password" class="invalid-feedback"></span>
+                    </div>
+
+                    <div class="form-group custom-form-group form-check-inline align-items-center">
+                        <input type="checkbox" class="form-check-input me-2" />
+                        <label class="form-check-label">Remember me</label>
+                    </div>
+
+                    <div class="form-group d-flex gap-2 mt-4">
+                        <button class="btn btn-primary btn-lg w-50 mr-2" type="submit">
+                            Login
+                        </button>
+                        <a asp-controller="User" asp-action="CheckEmail"
+                            class="btn btn-secondary btn-lg w-50 text-center">
+                            Forgot Password?
+                        </a>
+                    </div>
+
+                    <p class="text-center mt-4">Or sign in using:</p>
+                    <div class="d-flex justify-content-center gap-3">
+                        <button type="button"
+                            class="btn btn-social-icon-text btn-facebook d-flex align-items-center justify-content-center"
+                            style="width: 150px;">
+                            <i class="ti-facebook me-2"></i>Facebook
+                        </button>
+                        <button type="button"
+                            class="btn btn-social-icon-text btn-google d-flex align-items-center justify-content-center"
+                            style="width: 150px;">
+                            <i class="ti-google me-2"></i>Google
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

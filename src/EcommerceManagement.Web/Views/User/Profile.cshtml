@@ -1,0 +1,72 @@
+@using System.Security.Claims
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <link rel="stylesheet" href="~/css/profile.css">
+    var Name = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+    var Email = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+    var Phone = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.MobilePhone)?.Value;
+    var Role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+    var Date = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.DateOfBirth)?.Value;
+}
+
+<div class="container py-5">
+    <aside class="profile-card">
+        <header>
+            <a target="_blank" href="#">
+                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="hoverZoomLink">
+            </a>
+
+            <!-- the username -->
+            <h1>
+                @Name
+            </h1>
+
+            <!-- and role or location -->
+            <h2>
+                @Role
+            </h2>
+
+        </header>
+
+        <div class="profile-bio">
+
+            <p>
+                <strong>Email: </strong>
+                @Email
+            </p>
+            <p>
+                <strong>Phone: </strong>
+                @Phone
+            </p>
+            <p>
+                <strong>Date of Birth: </strong>
+                @Date
+            </p>
+        </div>
+        <!-- some social links to show off -->
+        <ul class="profile-social-links">
+            <li>
+                <a target="_blank" href="">
+                    <i class="ti-facebook"></i>
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="">
+                    <i class="ti-twitter-alt"></i>
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="">
+                    <i class="ti-linkedin"></i>
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="">
+
+                    <i class="ti-google"></i>
+                </a>
+            </li>
+        </ul>
+    </aside>
+</div>

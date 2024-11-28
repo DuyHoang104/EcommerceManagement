@@ -1,0 +1,39 @@
+body {
+  background-color: #000;
+  font-weight: 300; }
+
+p {
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 300; }
+
+.stretch-card {
+  padding: 20px;
+}
+.table-hover tbody tr:hover {
+  color: #f8df01;
+  background-color: #000000;
+}
+a {
+  color: #f8df01;
+}
+a:hover {
+  color: #ffbf00;
+  text-decoration: none;
+}
+a:not([href]):not([class]) {
+  color: red;
+  text-decoration: none;
+}
+table tbody tr:nth-child(odd) {
+  background-color: #151419; 
+}
+table tbody tr:nth-child(even) {
+  background-color: #1f1e23;; 
+}
+.mdi-close-circle-outline {
+  color: #fff; 
+  cursor: pointer; 
+}
+.card-body {
+  padding: 1.25rem;
+}

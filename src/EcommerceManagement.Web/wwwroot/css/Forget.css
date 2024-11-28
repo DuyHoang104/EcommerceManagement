@@ -1,0 +1,51 @@
+body {
+    background-color: #000;
+}
+.background-custom {
+    background-color: #232227;
+    border: none;
+}
+.list-group-item a {
+    text-decoration: none;
+    color: white;
+    padding-left: 35px;
+}
+
+.list-group-item {
+    border: none;
+    background-color: transparent;
+}
+
+.list-group-item a:hover {
+    color: #ccc;
+}
+
+#emailCheckModal .modal-content {
+    background-color: #000;
+    color: #fff;
+}
+
+#emailCheckModal .btn-close {
+    filter: invert(1);
+}
+
+#emailCheckModal .modal-header,
+#emailCheckModal .modal-title {
+    color: #fff;
+}
+
+#emailCheckModal .modal-body input.form-control {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+}
+
+#emailCheckModal .modal-body input.form-control::placeholder {
+    color: #aaa;
+}
+
+#emailCheckModal .modal-body label,
+#emailCheckModal .modal-body .form-label,
+#emailCheckModal .modal-body .text-danger {
+    color: #fff;
+}

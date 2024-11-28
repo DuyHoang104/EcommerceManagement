@@ -1,0 +1,27 @@
+# Bỏ qua các thư mục build và debug
+bin/
+obj/
+**/bin
+**/obj
+
+# Thư mục cho các công cụ IDE (Visual Studio, Rider, etc.)
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Các tệp liên quan đến NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+*.nuspec
+project.lock.json
+
+# Các tệp hệ thống
+*.DS_Store
+*.vs/
+*.log
+[Tt]humbs.db

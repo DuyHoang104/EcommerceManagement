@@ -1,0 +1,56 @@
+services:
+  nginx:
+      image: nginx:latest
+      ports:
+        - "8080:80"  # Expose port 8080 on the host to access the site
+      depends_on:
+        - dotnet-app
+      volumes:
+        - ./nginx.conf:/etc/nginx/nginx.conf  # Custom NGINX config
+        - ./out:/usr/share/nginx/html  # Serve published .NET project files from the /out directory
+        - ./log/nginx:/var/log/nginx
+      networks:
+        - internal
+
+  dotnet-app:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      environment:
+        - DOTNET_RUNNING_IN_CONTAINER=true
+        - DOTNET_USE_POLLING_FILE_WATCHER=true
+        - ASPNETCORE_ENVIRONMENT=Development
+        - ConnectionStrings__EcommerceManagementDBConnection=Server=db;Database=MyDatabase;User=sa;Password=Your_password123;Encrypt=False;
+      depends_on:
+        db:
+          condition: service_healthy
+      networks:
+        internal:
+          ipv4_address: 172.18.0.2
+
+  db:
+    image: mcr.microsoft.com/azure-sql-edge
+    container_name: sql_server
+    restart: always
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "Your_password123"
+      ACCEPT_EULA: "Y"
+    volumes:
+      - ./sql_data:/var/opt/mssql
+    networks:
+        internal:
+          ipv4_address: 172.18.0.3
+    healthcheck:
+      test: echo success
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  internal:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/16

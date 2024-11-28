@@ -1,0 +1,52 @@
+body {
+    background-color: #000;
+}
+
+.input-dark {
+    background-color: #000;
+    color: #fff;
+}
+
+.input-dark::placeholder {
+    color: #ddd;
+}
+
+.input-dark:focus {
+    background-color: #000;
+    color: #fff;
+    border-color: #555;
+    outline: none;
+}
+
+.btn-facebook {
+    background-color: #3b5998;
+    color: white;
+}
+
+.btn-google {
+    color: white;
+}
+
+.btn-google:hover {
+    color: white;
+    background-color: #b55146;
+}
+
+.btn-social-icon-text {
+    font-size: 16px;
+    height: 50px;
+}
+
+.btn-primary,
+.btn-secondary {
+    font-size: 18px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(43%) sepia(33%) saturate(602%) hue-rotate(176deg) brightness(95%) contrast(92%);
+    opacity: 1.5; 
+}

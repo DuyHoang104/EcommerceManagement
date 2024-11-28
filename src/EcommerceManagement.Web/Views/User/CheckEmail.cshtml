@@ -1,0 +1,87 @@
+﻿@model EcommerceManagement.Web.Dtos.Users.Commands.CheckEmailModalDto
+
+@{
+    ViewData["Title"] = "Check Email";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <link rel="stylesheet" href="~/css/Forget.css">
+}
+
+<div class="container-fluid">
+    <div class="container py-5">
+        <div class="row mb-2">
+            <div class="col-lg-6 offset-lg-3 text-center">
+                @if (ViewData["ErrorMessage"] != null)
+                {
+                    <div class="alert alert-danger">
+                        @ViewData["ErrorMessage"]
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-lg-8 offset-lg-2 background-custom">
+                <form id="resetOptionsForm" asp-action="ForgetPassword" method="post">
+                    <div class="text-danger" asp-validation-summary="All"></div>
+                    <div class="row">
+                        <div class="p-3 p-lg-5">
+                            <h2 class="h3 mb-4 text-white text-center">How would you like to receive a code to reset
+                                your password?
+                            </h2>
+                            <ul class="list-group mt-3 background-custom">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#googleModal">
+                                        <input type="radio" name="resetOption" class="me-2"> Use my Google account<br />
+                                        Sign in to Google (if you're not already signed in) to quickly reset your
+                                        password.
+                                    </a>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#emailCheckModal">
+                                        <input type="radio" name="resetOption" class="me-2"> Send code via email
+                                    </a>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#facebookModal">
+                                        <input type="radio" name="resetOption" class="me-2"> Send code via Facebook
+                                        notification <br />
+                                        You're signed in on another app or device. Please receive a notification with
+                                        your login code.
+                                    </a>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#smsModal">
+                                        <input type="radio" name="resetOption" class="me-2"> Send code via SMS
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="emailCheckModal" tabindex="-1" aria-labelledby="emailCheckModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="emailCheckModalLabel">Check Email</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="emailCheckForm" asp-action="CheckEmail" method="post">
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label">Email Address</label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Next</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

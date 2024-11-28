@@ -1,0 +1,126 @@
+@using EcommerceManagement.Web.Dtos.Accounts.Commands
+@using System.Security.Cryptography
+@model List<EcommerceManagement.Web.Dtos.Accounts.Commands.GetModalDto>
+
+@{
+    ViewData["Title"] = "Account";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var statuses = new List<(string Text, string Class)>
+    {
+        ("Completed", "badge badge-success"),
+        ("Pending", "badge badge-danger"),
+        ("Fixed", "badge badge-info"),
+        ("In progress", "badge badge-warning")
+    };
+    var random = new Random();
+}
+
+<link rel="stylesheet" href="~/css/table.css">
+<link href="https://cdn.jsdelivr.net/npm/@@mdi/font/css/materialdesignicons.min.css" rel="stylesheet">
+
+<div class="col-xl grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            @if (ViewData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger">
+                    @ViewData["ErrorMessage"]
+                </div>
+            }
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="card-title text-center">Account List</h2>
+                <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createAccountModal">Add Account</a>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Number</th>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Any())
+                        {
+                            var Number = 1;
+                            foreach (var account in Model)
+                            {
+                                var randomStatus = statuses[random.Next(statuses.Count)];
+
+                                <tr>
+                                    <td>@Number</td>
+                                    <td>@account.Name</td>
+                                    <td>@account.Address</td>
+                                    <td>@account.AccountType</td>
+                                    <td><label class="@randomStatus.Class">@randomStatus.Text</label></td>
+                                    <td>
+                                        <a asp-action="Edit" asp-controller="Account"
+                                           asp-route-id="@account.ID" data-bs-toggle="modal"
+                                           data-bs-target="#EditAccountModal" data-account-id="@account.ID"
+                                           data-account-name="@account.Name" data-account-address="@account.Address"
+                                           data-account-type="@account.AccountType">
+                                            EDIT
+                                        </a> |
+                                        <a style="cursor: pointer;" data-bs-toggle="modal"
+                                           data-bs-target="#DeleteAccountModal" data-account-id="@account.ID">
+                                            DELETE
+                                        </a>
+                                    </td>
+                                </tr>
+                                Number++;
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="6" class="text-center">
+                                    <div class="mt-1 text-center" role="alert">
+                                        <i class="bi bi-exclamation-triangle me-2"></i>
+                                        No accounts found. Please create a new account!
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("Create", new CreateModalDto())
+@await Html.PartialAsync("Edit", new EditModalDto())
+@await Html.PartialAsync("Delete", new DeleteModalDto())
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    const editModal = document.getElementById('EditAccountModal');
+    editModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        const accountId = button.getAttribute('data-account-id');
+        const accountName = button.getAttribute('data-account-name');
+        const accountAddress = button.getAttribute('data-account-address');
+        const accountType = button.getAttribute('data-account-type');
+
+        const modalBody = editModal.querySelector('.modal-body');
+        modalBody.querySelector('input[name="ID"]').value = accountId;
+        modalBody.querySelector('input[name="Name"]').value = accountName;
+        modalBody.querySelector('input[name="Address"]').value = accountAddress;
+        modalBody.querySelector('select[name="Type"]').value = accountType;
+    });
+
+    var deleteModal = document.getElementById('DeleteAccountModal');
+    deleteModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var accountId = button.getAttribute('data-account-id');
+        var inputId = deleteModal.querySelector('#accountIdToDelete');
+        inputId.value = accountId;
+    });
+</script>

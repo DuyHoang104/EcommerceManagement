@@ -1,0 +1,46 @@
+@model EcommerceManagement.Web.Dtos.Accounts.Commands.CreateModalDto
+
+@{
+    <link rel="stylesheet" href="~/css/Account.css">
+}
+
+<div class="modal fade" id="createAccountModal" tabindex="-1" aria-labelledby="createAccountModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-content text-white">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createAccountModalLabel">Create Account</h5>
+                <i class="mdi mdi-close-circle-outline"  data-bs-dismiss="modal" aria-label="Close"></i>
+
+            </div>
+            <div class="modal-body">
+                <form asp-action="Create" asp-controller="Account" method="post">
+                    <div class="form-group mb-3">
+                        <label asp-for="Name" class="form-label">Name</label>
+                        <input asp-for="Name" type="text" class="form-control custom-input" required />
+                        <span asp-validation-for="Name" class="invalid-feedback"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Address" class="form-label">Address</label>
+                        <input asp-for="Address" type="text" class="form-control custom-input" required />
+                        <span asp-validation-for="Address" class="invalid-feedback"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="AccountType" class="form-label">Account Type</label>
+                        <select asp-for="AccountType" class="form-control form-select custom-input" asp-items="ViewBag.Type"
+                            required>
+                            <option value="" disabled selected hidden>-- Select Account Type --</option>
+                        </select>
+                        <span asp-validation-for="AccountType" class="invalid-feedback"></span>
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <button type="submit" class="btn btn-primary w-100">Create</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

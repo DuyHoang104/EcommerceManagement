@@ -1,0 +1,96 @@
+﻿@model EcommerceManagement.Web.Dtos.Users.Commands.RegisterModalDto
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <link rel="stylesheet" href="~/css/style.css">
+}
+
+<div class="container py-5" style="margin-top: 50px;">
+    <div class="row mb-5">
+        <div class="col-lg-6 offset-lg-3 text-center">
+            @if (ViewData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger">
+                    @ViewData["ErrorMessage"]
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 offset-lg-3">
+            <div class="card p-4">
+                <h1 class="text-center">Sign Up</h1>
+
+                <div class="alert text-center">
+                    Already a customer? <a asp-action="Login" asp-controller="User">Click here</a> to Sign In.
+                </div>
+
+                <form asp-controller="User" asp-action="Register" method="post">
+                    <div class="form-group mb-3">
+                        <label asp-for="UserName" class="form-label my-3"></label>
+                        <input asp-for="UserName"
+                            class="form-control input-dark @(ViewData.ModelState["UserName"]?.Errors.Count > 0 ? "is-invalid" : (ViewData.ModelState["UserName"] != null ? "is-valid" : ""))"
+                            placeholder="Enter Username" />
+                        <span asp-validation-for="UserName" class="invalid-feedback"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Password" class="form-label my-3"></label>
+                        <input asp-for="Password" type="password" class="form-control input-dark @(ViewData.ModelState["Password"]?.Errors.Count > 0 
+                            ? "is-invalid" : "")" placeholder="Enter Password" />
+                        <span asp-validation-for="Password" class="invalid-feedback"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="DateOfBirth" class="form-label my-3"></label>
+                        <input asp-for="DateOfBirth" type="date" class="form-control input-dark @(ViewData.ModelState["DateOfBirth"]?.Errors.Count > 0 
+                            ? "is-invalid" : (ViewData.ModelState["DateOfBirth"] != null ? "is-valid" : ""))" />
+                        <span asp-validation-for="DateOfBirth" class="invalid-feedback"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Phone" class="form-label my-3"></label>
+                        <input asp-for="Phone" class="form-control input-dark @(ViewData.ModelState["Phone"]?.Errors.Count > 0 
+                            ? "is-invalid" : (ViewData.ModelState["Phone"] != null ? "is-valid" : ""))"
+                            placeholder="Enter Phone" />
+                        <span asp-validation-for="Phone" class="invalid-feedback"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Email" class="form-label my-3"></label>
+                        <input asp-for="Email" class="form-control input-dark @(ViewData.ModelState["Email"]?.Errors.Count > 0 
+                        ? "is-invalid" : (ViewData.ModelState["Email"] != null ? "is-valid" : ""))"
+                            placeholder="Enter Email" />
+                        <span asp-validation-for="Email" class="invalid-feedback"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="AddressDetails" class="form-label my-3"></label>
+                        <input asp-for="AddressDetails" class="form-control input-dark @(ViewData.ModelState["AddressDetails"]?.Errors.Count > 0 
+                            ? "is-invalid" : "")" placeholder="Enter Address">
+                        <span asp-validation-for="AddressDetails" class="invalid-feedback"></span>
+                    </div>
+
+                    <div class="form-group my-5">
+                        <button class="btn btn-primary btn-lg py-3 btn-block  w-100" type="submit">Register</button>
+                    </div>
+                </form>
+                <p class="text-center">Or Sign Up using:</p>
+                <div class="d-flex justify-content-center gap-3 mt-2">
+                    <button type="button"
+                        class="btn btn-social-icon-text btn-facebook d-flex align-items-center justify-content-center"
+                        style="width: 150px;">
+                        <i class="ti-facebook me-2"></i>Facebook
+                    </button>
+                    <button type="button"
+                        class="btn btn-social-icon-text btn-google d-flex align-items-center justify-content-center"
+                        style="width: 150px;">
+                        <i class="ti-google me-2"></i>Google
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
